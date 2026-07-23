@@ -55,12 +55,13 @@ button{font-family:inherit;cursor:pointer;background:none;border:none;color:inhe
 .nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:15px;}
 .nav-logo .dot{width:10px;height:10px;border-radius:3px;background:var(--red);}
 .nav-links{display:flex;gap:4px;align-items:center;}
-.nav-links a{
+.nav-links .tab-link{
   font-size:13.5px;font-weight:500;color:var(--grey-700);
   padding:8px 14px;border-radius:999px;transition:all .18s ease;white-space:nowrap;
+  font-family:'Inter',sans-serif;
 }
-.nav-links a:hover{background:var(--grey-100);color:var(--ink);}
-.nav-links a.active{background:var(--red-50);color:var(--red-dark);}
+.nav-links .tab-link:hover{background:var(--grey-100);color:var(--ink);}
+.nav-links .tab-link.active{background:var(--red-50);color:var(--red-dark);}
 .nav-toggle{display:none;font-size:22px;padding:6px;}
 @media (max-width:860px){
   .nav-links{
@@ -71,7 +72,7 @@ button{font-family:inherit;cursor:pointer;background:none;border:none;color:inhe
     transition:all .2s ease;
   }
   .nav-links.open{transform:translateY(0);opacity:1;visibility:visible;}
-  .nav-links a{padding:12px 8px;border-bottom:1px solid var(--grey-100);border-radius:0;}
+  .nav-links .tab-link{padding:12px 8px;border-bottom:1px solid var(--grey-100);border-radius:0;text-align:left;}
   .nav-toggle{display:block;}
 }
 
@@ -160,6 +161,7 @@ button{font-family:inherit;cursor:pointer;background:none;border:none;color:inhe
 /* ---------- TOC (Mục lục) ---------- */
 .toc-card{
   display:flex;flex-direction:column;gap:10px;padding:26px;
+  width:100%;text-align:left;font-family:'Inter',sans-serif;font-size:inherit;
 }
 .toc-card .badge-num{width:34px;height:34px;font-size:13px;border-radius:10px;}
 .toc-card h4{font-size:17px;}
@@ -249,6 +251,9 @@ footer .fbrand{font-weight:800;font-size:15px;color:var(--red-dark);}
 footer .frow{font-size:13.5px;color:var(--grey-700);margin-top:8px;}
 footer .fhash{margin-top:18px;}
 
+.tabview-panel{display:none;}
+.tabview-panel.active{display:block;animation:fadeIn .25s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
 .divider{height:1px;background:var(--grey-200);margin:var(--s5) 0;}
 .center{text-align:center;}
 .mx-auto{margin-left:auto;margin-right:auto;}
@@ -261,12 +266,12 @@ footer .fhash{margin-top:18px;}
     <div class="nav-logo"><span class="dot"></span>PNE · Chiến lược 2026</div>
     <button class="nav-toggle" id="navToggle" aria-label="Mở menu">☰</button>
     <div class="nav-links" id="navLinks">
-      <a href="#muc-luc">Mục lục</a>
-      <a href="#sec-01">01 Nghiên cứu</a>
-      <a href="#sec-02">02 Chiến lược</a>
-      <a href="#sec-03">03 Fanpage</a>
-      <a href="#sec-04">04 Quy chuẩn</a>
-      <a href="#sec-05">05 Visual</a>
+      <button class="tab-link active" data-target="muc-luc">Mục lục</button>
+      <button class="tab-link" data-target="sec-01">Nghiên cứu</button>
+      <button class="tab-link" data-target="sec-02">Chiến lược & Định vị</button>
+      <button class="tab-link" data-target="sec-03">Review Fanpage & Đề xuất</button>
+      <button class="tab-link" data-target="sec-04">Quy chuẩn truyền thông</button>
+      <button class="tab-link" data-target="sec-05">Visual Guideline</button>
     </div>
   </div>
 </nav>
@@ -280,7 +285,7 @@ footer .fhash{margin-top:18px;}
   </div>
 </header>
 
-<section id="muc-luc">
+<section id="muc-luc" class="tabview-panel active">
   <div class="wrap">
     <div class="sec-head">
       <div>
@@ -289,44 +294,42 @@ footer .fhash{margin-top:18px;}
       </div>
     </div>
     <div class="grid grid-3" style="grid-template-columns:repeat(5,minmax(0,1fr));">
-      <a class="card toc-card hoverable" href="#sec-01">
+      <button class="card toc-card hoverable tab-link-goto" data-target="sec-01">
         <span class="badge-num">01</span>
         <h4>Nghiên cứu</h4>
         <p>Thị trường, insight khách hàng, đối thủ và khe hở truyền thông.</p>
         <span class="go">Xem chi tiết →</span>
-      </a>
-      <a class="card toc-card hoverable" href="#sec-02">
+      </button>
+      <button class="card toc-card hoverable tab-link-goto" data-target="sec-02">
         <span class="badge-num">02</span>
         <h4>Chiến lược & Định vị</h4>
         <p>Phân khúc khách hàng và định vị thương hiệu PNE.</p>
         <span class="go">Xem chi tiết →</span>
-      </a>
-      <a class="card toc-card hoverable" href="#sec-03">
+      </button>
+      <button class="card toc-card hoverable tab-link-goto" data-target="sec-03">
         <span class="badge-num">03</span>
         <h4>Fanpage & Đề xuất</h4>
         <p>Đánh giá hiện trạng, content pillar và content angle 2026.</p>
         <span class="go">Xem chi tiết →</span>
-      </a>
-      <a class="card toc-card hoverable" href="#sec-04">
+      </button>
+      <button class="card toc-card hoverable tab-link-goto" data-target="sec-04">
         <span class="badge-num">04</span>
         <h4>Quy chuẩn truyền thông</h4>
         <p>Ngôn ngữ, giọng văn, caption, hashtag và footer mẫu.</p>
         <span class="go">Xem chi tiết →</span>
-      </a>
-      <a class="card toc-card hoverable" href="#sec-05">
+      </button>
+      <button class="card toc-card hoverable tab-link-goto" data-target="sec-05">
         <span class="badge-num">05</span>
         <h4>Visual Guideline</h4>
         <p>Bảng màu, tỉ lệ, quy tắc nhận diện và ví dụ áp dụng.</p>
         <span class="go">Xem chi tiết →</span>
-      </a>
+      </button>
     </div>
   </div>
 </section>
 
-<div class="wrap"><div class="divider"></div></div>
-
 <!-- ============ SECTION 01 ============ -->
-<section id="sec-01">
+<section id="sec-01" class="tabview-panel">
   <div class="wrap">
     <div class="sec-head">
       <span class="sec-num">01</span>
@@ -616,10 +619,8 @@ footer .fhash{margin-top:18px;}
   </div>
 </section>
 
-<div class="wrap"><div class="divider"></div></div>
-
 <!-- ============ SECTION 02 ============ -->
-<section id="sec-02">
+<section id="sec-02" class="tabview-panel">
   <div class="wrap">
     <div class="sec-head">
       <span class="sec-num">02</span>
@@ -709,10 +710,8 @@ footer .fhash{margin-top:18px;}
   </div>
 </section>
 
-<div class="wrap"><div class="divider"></div></div>
-
 <!-- ============ SECTION 03 ============ -->
-<section id="sec-03">
+<section id="sec-03" class="tabview-panel">
   <div class="wrap">
     <div class="sec-head">
       <span class="sec-num">03</span>
@@ -843,10 +842,8 @@ footer .fhash{margin-top:18px;}
   </div>
 </section>
 
-<div class="wrap"><div class="divider"></div></div>
-
 <!-- ============ SECTION 04 ============ -->
-<section id="sec-04">
+<section id="sec-04" class="tabview-panel">
   <div class="wrap">
     <div class="sec-head">
       <span class="sec-num">04</span>
@@ -936,10 +933,8 @@ footer .fhash{margin-top:18px;}
   </div>
 </section>
 
-<div class="wrap"><div class="divider"></div></div>
-
 <!-- ============ SECTION 05 ============ -->
-<section id="sec-05">
+<section id="sec-05" class="tabview-panel">
   <div class="wrap">
     <div class="sec-head">
       <span class="sec-num">05</span>
@@ -1064,17 +1059,26 @@ const navLinks = document.getElementById('navLinks');
 navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
 navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
 
-// ---------- Scrollspy ----------
-const sections = document.querySelectorAll('section[id]');
-const navA = document.querySelectorAll('.nav-links a');
-const spy = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      navA.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
-    }
+// ---------- Tab switching ----------
+const tabPanels = document.querySelectorAll('.tabview-panel');
+const tabButtons = document.querySelectorAll('.nav-links .tab-link');
+
+function showTab(id) {
+  tabPanels.forEach(p => p.classList.toggle('active', p.id === id));
+  tabButtons.forEach(b => b.classList.toggle('active', b.dataset.target === id));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+tabButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    showTab(btn.dataset.target);
+    navLinks.classList.remove('open');
   });
-}, { rootMargin: '-45% 0px -50% 0px' });
-sections.forEach(s => spy.observe(s));
+});
+
+document.querySelectorAll('.tab-link-goto').forEach(btn => {
+  btn.addEventListener('click', () => showTab(btn.dataset.target));
+});
 
 // ---------- Generic expand/collapse ----------
 function makeExpandable(container, opts) {
